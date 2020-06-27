@@ -1,0 +1,75 @@
+{
+    "name": "local-management",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack --mode development  --display-modules ./src/frontend/src/index.js --output ./src/frontend/static/frontend/main.js",
+        "build": "webpack --mode production --info-verbosity=verbose ./src/frontend/src/index.js --output ./src/frontend/static/frontend/main.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@material-ui/core": "^4.9.10",
+        "axios": "^0.19.2",
+        "bootstrap": "^4.5.0",
+        "moment": "^2.24.0",
+        "prop-types": "^15.7.2",
+        "react": "^16.13.1",
+        "react-alert": "^7.0.0",
+        "react-alert-template-basic": "^1.0.0",
+        "react-bootstrap": "^1.0.1",
+        "react-cookies": "^0.1.1",
+        "react-dom": "^16.13.1",
+        "react-google-maps": "^9.4.5",
+        "react-icons": "^3.10.0",
+        "react-redux": "^6.0.1",
+        "react-router-dom": "^5.1.2",
+        "react-table-v6": "^6.8.6",
+        "react-transition-group": "^2.9.0",
+        "redux": "^4.0.5",
+        "redux-devtools-extension": "^2.13.8",
+        "redux-thunk": "^2.3.0",
+        "whatwg-fetch": "^3.0.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.0.0-beta.40",
+        "@babel/core": "^7.9.0",
+        "@babel/plugin-proposal-class-properties": "^7.8.3",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/preset-env": "^7.9.0",
+        "@babel/preset-react": "^7.9.4",
+        "babel-eslint": "^10.1.0",
+        "babel-loader": "^8.1.0",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "copyfiles": "^2.0.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-config-prettier": "^6.10.1",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-react": "^7.19.0",
+        "husky": "^4.2.3",
+        "prettier": "^2.0.2",
+        "pretty-quick": "^2.0.1",
+        "react-scripts": "1.1.4",
+        "renamer": "^0.7.0",
+        "svg-url-loader": "^5.0.0",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11",
+        "webpack-node-externals": "^1.7.2"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "src/**/*.js": [
+            "eslint",
+            "pretty-quick — staged",
+            "git add"
+        ]
+    }
+}

@@ -27,6 +27,7 @@ class SubscriberSerializer(serializers.ModelSerializer):
                             lookup_field='slug'
                             )
     user            = UserPublicSerializer(read_only=True)
+    owner           = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Subscriber
         fields = [
@@ -35,5 +36,13 @@ class SubscriberSerializer(serializers.ModelSerializer):
             'user',
             'title',
             'fullname',
+            'owner',
             'timestamp',
         ]
+    def get_owner(self,obj):
+        print(self.context)
+        request = self.context['request']
+        if request.user.is_authenticated:
+            if obj.user == request.user:
+                return True
+        return False

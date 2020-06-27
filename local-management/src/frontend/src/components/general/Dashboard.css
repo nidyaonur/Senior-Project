@@ -1,0 +1,15 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 0.6fr 1.8fr 0.6fr;
+    grid-template-rows: 0.2fr 1.5fr 1.3fr;
+    gap: 1px 1px;
+    grid-template-areas: ". . ." "map map map" ". subs .";
+}
+
+.map {
+    grid-area: map;
+}
+
+.subs {
+    grid-area: subs;
+}

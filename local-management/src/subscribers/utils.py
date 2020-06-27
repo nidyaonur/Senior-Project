@@ -26,6 +26,7 @@ def unique_slug_generator(instance, new_slug=None):
         slug = new_slug
     else:
         slug = slugify(instance.title)
+    print(instance.fullname)
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(slug=slug).exists()
     if qs_exists:
