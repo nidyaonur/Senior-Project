@@ -12,7 +12,11 @@ class SubscriberDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class    = SubscriberSerializer
     lookup_field        = 'slug'
     permission_classes  = [IsOwnerOrReadOnly]
-
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
 
 class SubscriberListCreateAPIView(generics.ListCreateAPIView):
     queryset            = Subscriber.objects.all()
@@ -20,4 +24,5 @@ class SubscriberListCreateAPIView(generics.ListCreateAPIView):
     permission_classes  = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
+        print("selam")
         serializer.save(user=self.request.user)

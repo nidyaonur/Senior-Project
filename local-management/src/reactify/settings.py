@@ -31,18 +31,26 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'knox',
     'corsheaders',
     'rest_framework',
-
+    'rest_framework.authtoken',
     'posts',
     'subscribers',
+    'chat',
+    'frontend',
+#    'chat.apps.ChatConfig',
+#    FIXME: celery bozulursa buraya bakmak gerekebilir
+    'widget_tweaks',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -112,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Istanbul'
 
 USE_I18N = True
 
@@ -125,11 +133,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = '/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'staticfiles'), 
 ]
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static-cdn-local')
+MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
+IMAGES_DIR = os.path.join(MEDIA_ROOT, 'images')
 
+if not os.path.exists(MEDIA_ROOT) or not os.path.exists(IMAGES_DIR):
+    os.makedirs(IMAGES_DIR)
 
 CORS_URLS_REGEX = r'^/api.*'
 CORS_ORIGIN_ALLOW_ALL = True
@@ -138,11 +153,28 @@ CORS_ORIGIN_WHITELIST = (
     'your-domain.com',
     'your-bucket-here.s3-us-west-2.amazonaws.com',
 )
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+REST_KNOX = {
+  'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'knox.auth.TokenAuthentication',
+    ),
+#    'DEFAULT_PERMISSION_CLASSES': (
+#        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+#    )
+    'DATETIME_FORMAT': '%s',
+}
+#celery related settings
 
-
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+#CELERY_BEAT_SCHEDULE = {
+#    'send-notification-on-friday-afternoon': { 
+#         'task': 'subscribers.tasks.send_notification', 
+#         'schedule': 10.0,
+#        },          
+#}
