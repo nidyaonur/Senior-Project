@@ -13,7 +13,7 @@ django-crispy-forms==1.9.0
 django-rest-knox==4.1.0
 django-timezone-field==4.0
 django-widget-tweaks==1.4.5
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 httpie==2.0.0
 idna==2.9
 kombu==4.6.7
