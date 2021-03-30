@@ -20,7 +20,7 @@ kombu==4.6.7
 numpy==1.18.4
 Pillow==7.0.0
 pycparser==2.20
-Pygments==2.6.1
+Pygments==2.7.4
 pyproj==2.6.1.post1
 python-crontab==2.4.2
 python-dateutil==2.8.1
